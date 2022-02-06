@@ -1,17 +1,22 @@
 import { createSelector } from "reselect"
 
-const selectCrud = (state) => state.crud
+const selectGithub = (state) => state.github
 
 export const selectCurrentItem = createSelector(
-  [selectCrud],
-  (crud) => crud.current
+  [selectGithub],
+  (github) => github.current
 )
 
 export const selectSearchedItems = createSelector(
-  [selectCrud],
-  (crud) => crud.search
+  [selectGithub],
+  (github) => github.search
 )
 export const selectItemById = (itemId) =>
   createSelector(selectSearchedItems, (search) =>
     search.result.items.find((item) => item._id === itemId)
   )
+
+export const selectFavorList = createSelector(
+  [selectGithub],
+  (github) => github.favorList
+)

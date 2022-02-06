@@ -1,9 +1,10 @@
 import * as actionTypes from "./types"
 
-const INITIAL_STATE: any = {
+export const INITIAL_STATE: any = {
   current: {
     result: null,
   },
+  favorList: [],
   search: {
     result: { items: [] },
     isLoading: false,
@@ -11,7 +12,11 @@ const INITIAL_STATE: any = {
   },
 }
 
-const crudReducer = (
+function removeItemFiter(array: string[], payload?: string) {
+  return array.filter((item: string) => item !== payload)
+}
+
+const githubReducer = (
   state = INITIAL_STATE,
   action: { type?: string; payload?: any; keyState: string }
 ) => {
@@ -53,9 +58,19 @@ const crudReducer = (
           isSuccess: true,
         },
       }
+    case actionTypes.FAVOR:
+      return {
+        ...state,
+        favorList: [...state.favorList, payload],
+      }
+    case actionTypes.DISFAVOR:
+      return {
+        ...state,
+        favorList: removeItemFiter(state.favorList, payload),
+      }
     default:
       return state
   }
 }
 
-export default crudReducer
+export default githubReducer

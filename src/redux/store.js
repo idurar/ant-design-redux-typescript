@@ -5,6 +5,8 @@ import { createLogger } from "redux-logger"
 import rootReducer from "./rootReducer"
 import storePersist from "./storePersist"
 
+import { INITIAL_STATE } from "./github/reducer"
+
 const logger = createLogger()
 let middleware = [thunk]
 
@@ -17,8 +19,8 @@ if (process.env.NODE_ENV === "development") {
   configStore = composeEnhancers(applyMiddleware(...middleware))
 }
 
-const initialState = storePersist.get("crud")
-  ? { crud: storePersist.get("crud") }
+const initialState = storePersist.get("favorList")
+  ? { github: { ...INITIAL_STATE, favorList: storePersist.get("favorList") } }
   : {}
 
 const store = createStore(rootReducer, initialState, configStore)

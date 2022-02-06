@@ -1,11 +1,11 @@
 import { combineReducers } from "redux"
 
-import { reducer as crudReducer } from "./crud"
+import { reducer as githubReducer } from "./github"
 
 // Combine all reducers.
 
 const appReducer = combineReducers({
-  crud: crudReducer,
+  github: githubReducer,
 })
 
 const rootReducer = (state, action) => {

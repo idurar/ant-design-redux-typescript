@@ -1,14 +1,37 @@
 import * as actionTypes from "./types"
 import { request } from "@/request"
+import storePersist from "@/redux/storePersist"
 
-export const crud = {
+export const github = {
   currentItem:
     ({ data }) =>
     async (dispatch) => {
       dispatch({
         type: actionTypes.CURRENT_ITEM,
-        payload: { ...data },
+        payload: data,
       })
+    },
+  favorToggle:
+    ({ repoId }) =>
+    async (dispatch, getState) => {
+      let favorList = getState().github.favorList
+
+      const exist = favorList.includes(repoId)
+
+      if (exist) {
+        dispatch({
+          type: actionTypes.DISFAVOR,
+          payload: repoId,
+        })
+      } else {
+        dispatch({
+          type: actionTypes.FAVOR,
+          payload: repoId,
+        })
+      }
+
+      favorList = getState().github.favorList
+      storePersist.set("favorList", favorList)
     },
   search:
     ({ entity, options = {} }) =>
