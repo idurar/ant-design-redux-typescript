@@ -11,7 +11,6 @@ export const github = {
       let favorList: string[] = getState().github.favorList;
 
       const exist = favorList.includes(repoId);
-
       if (exist) {
         dispatch({
           type: actionTypes.DISFAVOR,
@@ -54,6 +53,17 @@ export const github = {
           type: actionTypes.REQUEST_SUCCESS,
           keyState: 'search',
           payload: { items },
+        });
+
+        let languageList = new Set<string>();
+
+        items.forEach(({ language }) => {
+          languageList.add(language);
+        });
+
+        dispatch({
+          type: actionTypes.UPDATE_LANGUAGE,
+          payload: Array.from(languageList).sort(),
         });
       } else {
         dispatch({

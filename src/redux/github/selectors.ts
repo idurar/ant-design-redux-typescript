@@ -7,3 +7,4 @@ export const selectCurrentItem = createSelector([selectGithub], (github) => gith
 export const selectSearchedItems = createSelector([selectGithub], (github) => github.search);
 
 export const selectFavorList = createSelector([selectGithub], (github) => github.favorList);
+export const selectLanguageList = createSelector([selectGithub], (github) => github.languageList);
