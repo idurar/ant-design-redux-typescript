@@ -1,49 +1,40 @@
-import React, { useEffect, useState } from "react"
-import "./App.css"
-import { DefaultLayout } from "./layout"
+import React, { useEffect, useState } from 'react';
+import './App.css';
+import { DefaultLayout } from './layout';
 
-import { useSelector, useDispatch } from "react-redux"
-import { github } from "@/redux/github/actions"
-import { selectSearchedItems, selectFavorList } from "@/redux/github/selectors"
+import { useSelector, useDispatch } from 'react-redux';
+import { github } from '@/redux/github/actions';
+import { selectSearchedItems, selectFavorList } from '@/redux/github/selectors';
 
-import { List, Card, Typography, Button } from "antd"
+import { List, Card, Typography, Button, PageHeader, Divider, Radio, RadioChangeEvent } from 'antd';
 
-import { HeartOutlined, StarOutlined, ForkOutlined } from "@ant-design/icons"
+import { HeartOutlined, StarOutlined, GithubOutlined } from '@ant-design/icons';
+import { formatDate } from './utils';
 
-const { Paragraph, Text } = Typography
-function formatDate(date: Date) {
-  let day = date.getDate().toString()
-  let month = (date.getMonth() + 1).toString()
-  const year = date.getFullYear()
-  if (month.length < 2) month = `0${month}`
-  if (day.length < 2) day = `0${day}`
-  return `${year}-${month}-${day}`
-}
+const { Paragraph } = Typography;
 
-const lastWeek = formatDate(
-  new Date(new Date().setDate(new Date().getDate() - 7))
-)
+const lastWeek = formatDate(new Date(new Date().setDate(new Date().getDate() - 7)));
 
 const Action = ({ text, icon }: { text: string; icon: React.ReactNode }) => {
   return (
-    <div style={{ display: "flex", justifyContent: "space-evenly" }}>
-      <div style={{ display: "flex", alignItems: "center" }}>
+    <div style={{ display: 'flex', justifyContent: 'space-evenly' }}>
+      <div style={{ display: 'flex', alignItems: 'center' }}>
         {icon}
-        <div style={{ paddingLeft: "10px" }}>{text}</div>
+        <div style={{ paddingLeft: '10px' }}>{text}</div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-const Favor = ({ repoId, favorList }: { repoId: any; favorList: string[] }) => {
-  const dispatch = useDispatch()
+const FavorIcon = ({ repoId, favorList }: { repoId: any; favorList: string[] }) => {
+  const dispatch = useDispatch();
   const favorToggle = () => {
     dispatch(
       github.favorToggle({
         repoId,
       })
-    )
-  }
+    );
+  };
 
   return (
     <Button
@@ -51,48 +42,86 @@ const Favor = ({ repoId, favorList }: { repoId: any; favorList: string[] }) => {
       icon={
         <HeartOutlined
           style={{
-            color: favorList.includes(repoId) ? "red" : "grey",
-            fontSize: "16px",
+            color: favorList.includes(repoId) ? 'red' : 'grey',
+            fontSize: '16px',
           }}
         />
       }
       onClick={favorToggle}
     />
-  )
-}
+  );
+};
+
+const FavorFilter = ({
+  handleFavorChange,
+  favorState,
+}: {
+  handleFavorChange: (e: RadioChangeEvent) => void;
+  favorState: string;
+}) => {
+  return (
+    <Radio.Group value={favorState} onChange={handleFavorChange}>
+      <Radio.Button value="all">All</Radio.Button>
+      <Radio.Button value="favored">Favored</Radio.Button>
+      <Radio.Button value="unfavored">Unfavored</Radio.Button>
+    </Radio.Group>
+  );
+};
 
 function App() {
-  const dispatch = useDispatch()
-  const [state, setState] = useState("")
+  const dispatch = useDispatch();
+  const [githubStateList, setGithubList] = useState<any[any]>([]);
+  const [favorState, setFavorState] = useState<'all' | 'favored' | 'unfavored'>('all');
 
-  async function getGithubRepo() {
-    const response = await fetch(
-      `https://api.github.com/search/repositories?q=created:%3E${lastWeek}&sort=stars&order=desc`
-    )
-    const data = await response.json()
-    setState(data)
-  }
-
-  const { result: searchResult, isLoading } = useSelector(selectSearchedItems)
-  const favorList = useSelector(selectFavorList)
-  console.log("🚀 ~ file: App.tsx ~ line 38 ~ App ~ searchResult", searchResult)
+  const { result: searchResult, isLoading } = useSelector(selectSearchedItems);
+  const favorList = useSelector(selectFavorList);
+  console.log('🚀 ~ file: App.tsx ~ line 38 ~ App ~ searchResult', searchResult);
 
   useEffect(() => {
     dispatch(
       github.search({
-        entity: "repositories",
-        options: { q: `created:%3E${lastWeek}`, sort: "stars" },
+        entity: 'repositories',
+        options: { q: `created:%3E${lastWeek}`, sort: 'stars', order: 'desc' },
       })
-    )
-    getGithubRepo()
-  }, [])
+    );
+  }, []);
+
+  const handleFavorChange = (e: RadioChangeEvent) => {
+    setFavorState(e.target.value);
+  };
 
   useEffect(() => {
-    console.log("🚀 ~ file: App.tsx ~ line 9 ~ App ~ state", state)
-  }, [state])
+    if (favorState === 'all') setGithubList(searchResult.items);
+    if (favorState === 'favored') {
+      const filtredList = searchResult.items.filter((item: any) => {
+        return favorList.includes(item.id);
+      });
+      setGithubList(filtredList);
+    }
+    if (favorState === 'unfavored') {
+      const filtredList = searchResult.items.filter((item: any) => {
+        return !favorList.includes(item.id);
+      });
+      setGithubList(filtredList);
+    }
+  }, [favorList, favorState, searchResult]);
 
   return (
     <DefaultLayout>
+      <PageHeader
+        ghost={false}
+        title="Github App"
+        subTitle="Repository Search"
+        extra={[
+          <FavorFilter
+            key="FavorFilter"
+            favorState={favorState}
+            handleFavorChange={handleFavorChange}
+          />,
+        ]}
+        style={{ borderRadius: 12, border: '1px solid #edf0f5' }}
+      />
+      <Divider />
       <List
         grid={{
           gutter: 16,
@@ -103,41 +132,37 @@ function App() {
           xl: 3,
           xxl: 3,
         }}
-        dataSource={searchResult.items}
+        dataSource={githubStateList}
+        loading={isLoading}
         renderItem={(item: any) => (
           <List.Item>
             <Card
               title={item.full_name}
-              extra={<Favor repoId={item.id} favorList={favorList} />}
-              style={{ height: 280, position: "relative" }}
+              extra={<FavorIcon repoId={item.id} favorList={favorList} />}
+              style={{ height: 280, position: 'relative' }}
               actions={[
                 <Action
-                  text={
-                    item.stargazers_count +
-                    (item.stargazers_count > 1 ? " stars" : " stars")
-                  }
+                  text={item.stargazers_count + (item.stargazers_count > 1 ? ' stars' : ' stars')}
                   key="star"
                   icon={<StarOutlined />}
                 />,
                 <Action
-                  text={item.forks + (item.forks > 1 ? " forks" : " fork")}
-                  key="fork"
-                  icon={<ForkOutlined />}
+                  text={item.language || 'Unknow'}
+                  key="language"
+                  icon={<GithubOutlined />}
                 />,
               ]}
             >
-              <p>
+              <Paragraph ellipsis={{ rows: 2 }}>
                 Link : <a href={item.html_url}>{item.html_url}</a>
-              </p>
-              <Paragraph ellipsis={{ rows: 3 }}>
-                description : {item.description}
               </Paragraph>
+              <Paragraph ellipsis={{ rows: 3 }}>description : {item.description}</Paragraph>
             </Card>
           </List.Item>
         )}
       />
     </DefaultLayout>
-  )
+  );
 }
 
-export default App
+export default App;

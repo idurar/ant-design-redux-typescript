@@ -1,10 +1,10 @@
-.ant-layout {
+// .ant-layout {
+//   background: #f9fafc !important;
+// }
+.site-layout {
   background: #f9fafc !important;
 }
-.site-layout .site-layout-background {
-  background: #fff;
-}
-[data-theme="dark"] .site-layout .site-layout-background {
+[data-theme='dark'] .site-layout .site-layout-background {
   background: #141414;
 }
 .ant-layout-sider-trigger {
@@ -48,7 +48,7 @@
   pointer-events: none;
 }
 
-.login-form button[type="submit"] {
+.login-form button[type='submit'] {
   margin-bottom: 20px;
 }
 .login-form-forgot {
@@ -89,4 +89,12 @@ h6 {
   bottom: 0;
   position: absolute;
   width: 100%;
+  border-radius: 0 0 12px 12px;
+}
+
+.ant-card {
+  border-radius: 12px;
+  &:hover {
+    box-shadow: @card-shadow;
+  }
 }

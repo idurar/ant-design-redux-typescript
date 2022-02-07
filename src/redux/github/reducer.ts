@@ -1,37 +1,28 @@
-import * as actionTypes from "./types"
+import { githubStateType } from '@/types';
+import * as actionTypes from './types';
 
-export const INITIAL_STATE: any = {
-  current: {
-    result: null,
-  },
+export const INITIAL_STATE: githubStateType = {
   favorList: [],
   search: {
     result: { items: [] },
     isLoading: false,
     isSuccess: false,
   },
-}
+};
 
 function removeItemFiter(array: string[], payload?: string) {
-  return array.filter((item: string) => item !== payload)
+  return array.filter((item: string) => item !== payload);
 }
 
 const githubReducer = (
   state = INITIAL_STATE,
   action: { type?: string; payload?: any; keyState: string }
 ) => {
-  const { payload, keyState } = action
+  const { payload, keyState } = action;
 
   switch (action.type) {
     case actionTypes.RESET_STATE:
-      return INITIAL_STATE
-    case actionTypes.CURRENT_ITEM:
-      return {
-        ...state,
-        current: {
-          result: payload,
-        },
-      }
+      return INITIAL_STATE;
     case actionTypes.REQUEST_LOADING:
       return {
         ...state,
@@ -39,7 +30,7 @@ const githubReducer = (
           ...state[keyState],
           isLoading: true,
         },
-      }
+      };
     case actionTypes.REQUEST_FAILED:
       return {
         ...state,
@@ -48,7 +39,7 @@ const githubReducer = (
           isLoading: false,
           isSuccess: false,
         },
-      }
+      };
     case actionTypes.REQUEST_SUCCESS:
       return {
         ...state,
@@ -57,20 +48,20 @@ const githubReducer = (
           isLoading: false,
           isSuccess: true,
         },
-      }
+      };
     case actionTypes.FAVOR:
       return {
         ...state,
         favorList: [...state.favorList, payload],
-      }
+      };
     case actionTypes.DISFAVOR:
       return {
         ...state,
         favorList: removeItemFiter(state.favorList, payload),
-      }
+      };
     default:
-      return state
+      return state;
   }
-}
+};
 
-export default githubReducer
+export default githubReducer;

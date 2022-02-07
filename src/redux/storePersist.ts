@@ -1,12 +1,12 @@
 export const storePersist = {
-  set: (key, state) => {
+  set: (key: string, state: any) => {
     window.localStorage.setItem(key, JSON.stringify(state));
   },
-  get: (key) => {
-    const result = window.localStorage.getItem(key);
+  get: (key: string) => {
+    const result: any = window.localStorage.getItem(key);
     return JSON.parse(result);
   },
-  remove: (key) => {
+  remove: (key: string) => {
     window.localStorage.removeItem(key);
   },
   getAll: () => {

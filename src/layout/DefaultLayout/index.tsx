@@ -1,25 +1,25 @@
 import React from 'react';
 
+import { Layout } from 'antd';
 
-import { Layout } from "antd"
+const { Content } = Layout;
 
-const { Content } = Layout
-
-const DefaultLayout: React.FC = ({ children } ) => {
+const DefaultLayout: React.FC = ({ children }) => {
   return (
-    <Layout>
+    <Layout className="site-layout">
       <Content
         style={{
-          padding: "0 20px",
-          margin: "0 auto",
-          width: "100%",
-          maxWidth: "1100px",
+          padding: '20px',
+          margin: '0 auto',
+          width: '100%',
+          minHeight: '100vh',
+          maxWidth: '1100px',
         }}
       >
         {children}
       </Content>
     </Layout>
-  )
-}
+  );
+};
 
 export default DefaultLayout;
