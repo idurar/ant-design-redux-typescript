@@ -20,6 +20,7 @@ export interface repoType {
 }
 
 export interface githubStateType {
+  languageList: string[];
   favorList: string[];
   search: {
     result: { items: repoType[] };

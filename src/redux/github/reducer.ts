@@ -2,6 +2,7 @@ import { githubStateType } from '@/types';
 import * as actionTypes from './types';
 
 export const INITIAL_STATE: githubStateType = {
+  languageList: [],
   favorList: [],
   search: {
     result: { items: [] },
@@ -58,6 +59,11 @@ const githubReducer = (
       return {
         ...state,
         favorList: removeItemFiter(state.favorList, payload),
+      };
+    case actionTypes.UPDATE_LANGUAGE:
+      return {
+        ...state,
+        languageList: payload,
       };
     default:
       return state;

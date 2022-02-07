@@ -12,7 +12,40 @@ import { favorType, repoType } from '@/types';
 
 const lastWeek = formatDate(new Date(new Date().setDate(new Date().getDate() - 7)));
 
-const RepoList = ({ favorState }: { favorState: favorType }) => {
+function filterState(
+  items: repoType[],
+  favorState: string,
+  favorList: string[],
+  languageState: string
+): repoType[] {
+  let filtredList: repoType[] | [] = [];
+  if (favorState === 'all') filtredList = items;
+
+  if (favorState === 'favored') {
+    filtredList = items.filter((item: repoType) => {
+      return favorList.includes(item.id);
+    });
+  }
+  if (favorState === 'unfavored') {
+    filtredList = items.filter((item: repoType) => {
+      return !favorList.includes(item.id);
+    });
+  }
+  if (languageState !== 'all') {
+    filtredList = filtredList.filter((item: repoType) => {
+      return item.language === languageState;
+    });
+  }
+  return filtredList;
+}
+
+const RepoList = ({
+  favorState,
+  languageState,
+}: {
+  favorState: favorType;
+  languageState: string;
+}) => {
   const dispatch = useDispatch();
   const [githubStateList, setGithubList] = useState<repoType[]>([]);
 
@@ -29,20 +62,10 @@ const RepoList = ({ favorState }: { favorState: favorType }) => {
   }, []);
 
   useEffect(() => {
-    if (favorState === 'all') setGithubList(searchResult.items);
-    if (favorState === 'favored') {
-      const filtredList = searchResult.items.filter((item: any) => {
-        return favorList.includes(item.id);
-      });
-      setGithubList(filtredList);
-    }
-    if (favorState === 'unfavored') {
-      const filtredList = searchResult.items.filter((item: any) => {
-        return !favorList.includes(item.id);
-      });
-      setGithubList(filtredList);
-    }
-  }, [favorList, favorState, searchResult]);
+    let filtredList = filterState(searchResult.items, favorState, favorList, languageState);
+
+    setGithubList(filtredList);
+  }, [favorList, languageState, favorState, searchResult]);
 
   return (
     <List
