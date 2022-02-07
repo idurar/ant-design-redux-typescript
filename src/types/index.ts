@@ -4,7 +4,7 @@ export type optionsType = {
   order: string;
 };
 
-export type keyOptionsType = 'q' | 'order' | 'sort';
+export type keyOptionsType = keyof optionsType;
 
 export type searchOptionsType = {
   [key in keyof optionsType]?: optionsType[key];
