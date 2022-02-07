@@ -28,3 +28,5 @@ export interface githubStateType {
   };
   [key: string]: any;
 }
+
+export type favorType = 'all' | 'favored' | 'unfavored';
