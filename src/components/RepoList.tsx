@@ -19,7 +19,7 @@ function filterState(
   languageState: string
 ): repoType[] {
   let filtredList: repoType[] | [] = [];
-  if (favorState === 'all') filtredList = items;
+  if (favorState === 'all') filtredList = [...items];
 
   if (favorState === 'favored') {
     filtredList = items.filter((item: repoType) => {
