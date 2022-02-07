@@ -5,16 +5,12 @@ import { selectLanguageList } from '@/redux/github/selectors';
 const LanguageSelect = ({
   handleLanguageChange,
 }: {
-  handleLanguageChange: ((value: string) => void) | undefined;
+  handleLanguageChange: (value: string) => void;
 }) => {
   const languageList = useSelector(selectLanguageList);
 
   return (
-    <Select
-      defaultValue="all"
-      style={{ width: 150, paddingLeft: 15 }}
-      onChange={handleLanguageChange}
-    >
+    <Select defaultValue="all" className="languageSelect" onChange={handleLanguageChange}>
       <Select.Option value="all">All Languages</Select.Option>
       {languageList.map((language: string) => (
         <Select.Option key={language} value={language}>
