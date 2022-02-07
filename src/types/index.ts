@@ -1,12 +1,14 @@
-interface optionsType {
-  q?: string;
-  sort?: string;
-  order?: string;
-}
+export type optionsType = {
+  q: string;
+  sort: string;
+  order: string;
+};
 
-export interface searchOptionsType extends optionsType {
-  [key: string]: any;
-}
+export type keyOptionsType = 'q' | 'order' | 'sort';
+
+export type searchOptionsType = {
+  [key in keyof optionsType]?: optionsType[key];
+};
 
 export interface repoType {
   id: string;
