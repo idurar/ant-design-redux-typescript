@@ -49,6 +49,7 @@
   },
   "devDependencies": {
     "@craco/craco": "^6.4.3",
+    "@types/redux-logger": "^3.0.9",
     "craco-alias": "^3.0.1",
     "craco-less": "^2.0.0",
     "identity-obj-proxy": "^3.0.0",
