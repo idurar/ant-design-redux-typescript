@@ -1056,7 +1056,7 @@
   dependencies:
     regenerator-runtime "^0.13.4"
 
-"@babel/runtime@^7.15.4":
+"@babel/runtime@^7.15.4", "@babel/runtime@^7.7.6":
   version "7.17.0"
   resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.17.0.tgz#b8d142fc0f7664fb3d9b5833fd40dcbab89276c0"
   integrity sha512-etcO/ohMNaNA2UBdaXBBSX/3aEzFMRrVfaPv8Ptc0k+cWpWW0QFiGZ2XnVqQZI1Cf734LbPGmqBKWESfW4x/dQ==
@@ -2578,13 +2578,6 @@ axe-core@^4.3.5:
   version "4.4.0"
   resolved "https://registry.yarnpkg.com/axe-core/-/axe-core-4.4.0.tgz#f93be7f81017eb8bedeb1859cc8092cc918d2dc8"
   integrity sha512-btWy2rze3NnxSSxb7LtNhPYYFrRoFBfjiGzmSc/5Hu47wApO2KNXjP/w7Nv2Uz/Fyr/pfEiwOkcXhDxu0jz5FA==
-
-axios@^0.25.0:
-  version "0.25.0"
-  resolved "https://registry.yarnpkg.com/axios/-/axios-0.25.0.tgz#349cfbb31331a9b4453190791760a8d35b093e0a"
-  integrity sha512-cD8FOb0tRH3uuEe6+evtAbgJtfxr7ly3fQjYcMcuPlgkwVS9xboaVIpcDV+cYQe+yGykgwZCs1pzjntcGa6l5g==
-  dependencies:
-    follow-redirects "^1.14.7"
 
 axobject-query@^2.2.0:
   version "2.2.0"
@@ -4440,7 +4433,7 @@ flatted@^3.1.0:
   resolved "https://registry.yarnpkg.com/flatted/-/flatted-3.2.5.tgz#76c8584f4fc843db64702a6bd04ab7a8bd666da3"
   integrity sha512-WIWGi2L3DyTUvUrwRKgGi9TwxQMUEqPOPQBVi71R96jZXJdFskXEmf54BoZaS1kknGODoIGASGEzBUYdyMCBJg==
 
-follow-redirects@^1.0.0, follow-redirects@^1.14.7:
+follow-redirects@^1.0.0:
   version "1.14.7"
   resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.14.7.tgz#2004c02eb9436eee9a21446a6477debf17e81685"
   integrity sha512-+hbxoLbFMbRKDwohX8GkTataGqO6Jb7jGwpAlwgy2bIz25XtRm7KEzJM76R1WiNT5SwZkX4Y75SwBolkpmE7iQ==
@@ -4705,6 +4698,13 @@ he@^1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/he/-/he-1.2.0.tgz#84ae65fa7eafb165fddb61566ae14baf05664f0f"
   integrity sha512-F/1DnUGPopORZi0ni+CvrCgHQ5FyEAHRLSApuYWMmrbSwoN2Mn/7k+Gl38gJnR7yyDZk6WLXwiGod1JOWNDKGw==
+
+history@^5.2.0:
+  version "5.2.0"
+  resolved "https://registry.yarnpkg.com/history/-/history-5.2.0.tgz#7cdd31cf9bac3c5d31f09c231c9928fad0007b7c"
+  integrity sha512-uPSF6lAJb3nSePJ43hN3eKj1dTWpN9gMod0ZssbFTIsen+WehTmEadgL+kg78xLJFdRfrrC//SavDzmRVdE+Ig==
+  dependencies:
+    "@babel/runtime" "^7.7.6"
 
 hoist-non-react-statics@^3.3.0, hoist-non-react-statics@^3.3.2:
   version "3.3.2"
@@ -7734,6 +7734,21 @@ react-refresh@^0.11.0:
   version "0.11.0"
   resolved "https://registry.yarnpkg.com/react-refresh/-/react-refresh-0.11.0.tgz#77198b944733f0f1f1a90e791de4541f9f074046"
   integrity sha512-F27qZr8uUqwhWZboondsPx8tnC3Ct3SxZA3V5WyEvujRyyNv0VYPhoBg1gZ8/MV5tubQp76Trw8lTv9hzRBa+A==
+
+react-router-dom@^6.2.1:
+  version "6.2.1"
+  resolved "https://registry.yarnpkg.com/react-router-dom/-/react-router-dom-6.2.1.tgz#32ec81829152fbb8a7b045bf593a22eadf019bec"
+  integrity sha512-I6Zax+/TH/cZMDpj3/4Fl2eaNdcvoxxHoH1tYOREsQ22OKDYofGebrNm6CTPUcvLvZm63NL/vzCYdjf9CUhqmA==
+  dependencies:
+    history "^5.2.0"
+    react-router "6.2.1"
+
+react-router@6.2.1:
+  version "6.2.1"
+  resolved "https://registry.yarnpkg.com/react-router/-/react-router-6.2.1.tgz#be2a97a6006ce1d9123c28934e604faef51448a3"
+  integrity sha512-2fG0udBtxou9lXtK97eJeET2ki5//UWfQSl1rlJ7quwe6jrktK9FCCc8dQb5QY6jAv3jua8bBQRhhDOM/kVRsg==
+  dependencies:
+    history "^5.2.0"
 
 react-scripts@5.0.0:
   version "5.0.0"

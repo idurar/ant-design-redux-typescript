@@ -9,7 +9,7 @@ import LanguageSelect from '@/components/LanguageSelect';
 
 import { favorType } from '@/types';
 
-function App() {
+const Home = () => {
   const [favorState, setFavorState] = useState<favorType>('all');
   const [languageState, setLanguageState] = useState('all');
   const handleFavorChange = (e: RadioChangeEvent) => {
@@ -40,6 +40,6 @@ function App() {
       <RepoList favorState={favorState} languageState={languageState} />
     </DefaultLayout>
   );
-}
+};
 
-export default App;
+export default Home;
