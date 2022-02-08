@@ -10,7 +10,7 @@ const LanguageSelect = ({
   const languageList = useSelector(selectLanguageList);
 
   return (
-    <Select defaultValue="all" className="languageSelect" onChange={handleLanguageChange}>
+    <Select defaultValue="all" className="actionSelect" onChange={handleLanguageChange}>
       <Select.Option value="all">All Languages</Select.Option>
       {languageList.map((language: string) => (
         <Select.Option key={language} value={language}>
