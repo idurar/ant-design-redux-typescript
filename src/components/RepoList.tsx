@@ -41,9 +41,11 @@ function filterState(
 
 const RepoList = ({
   favorState,
+  sortState,
   languageState,
 }: {
   favorState: favorType;
+  sortState: string;
   languageState: string;
 }) => {
   const dispatch = useDispatch();
@@ -56,10 +58,10 @@ const RepoList = ({
     dispatch(
       github.search({
         entity: 'repositories',
-        options: { q: `created:%3E${lastWeek}`, sort: 'stars', order: 'desc' },
+        options: { q: `created:%3E${lastWeek}`, sort: 'stars', order: sortState },
       })
     );
-  }, []);
+  }, [sortState]);
 
   useEffect(() => {
     let filtredList = filterState(searchResult.items, favorState, favorList, languageState);
