@@ -3,7 +3,7 @@ import { Card, Typography, Button } from 'antd';
 import { HeartOutlined, StarOutlined, GithubOutlined, ArrowsAltOutlined } from '@ant-design/icons';
 
 import { useSelector, useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { github } from '@/redux/github/actions';
 import { selectFavorList } from '@/redux/github/selectors';
 
@@ -59,11 +59,14 @@ const FavorIcon = ({ repoId }: { repoId: any }) => {
 
 const RepoCard = ({ item }: { item: repoType | undefined }) => {
   let navigate: any = useNavigate();
+  let location: any = useLocation();
+
   return (
     <Card
       title={item?.full_name}
       extra={<FavorIcon repoId={item?.id} />}
       className="repoCard"
+      style={{ minHeight: location.pathname != '/' ? '500px' : 'auto' }}
       actions={[
         <Action
           text={item?.stargazers_count + (item && item.stargazers_count > 1 ? ' stars' : ' stars')}
@@ -71,14 +74,25 @@ const RepoCard = ({ item }: { item: repoType | undefined }) => {
           icon={<StarOutlined />}
         />,
         <Action text={item?.language || 'Unknow'} key="language" icon={<GithubOutlined />} />,
-        <Action
-          text={'Open'}
-          key="language"
-          icon={<ArrowsAltOutlined />}
-          onClick={() => {
-            navigate(`/repository/${item?.id}`);
-          }}
-        />,
+        location.pathname == '/' ? (
+          <Action
+            text={'Open'}
+            key="openCard"
+            icon={<ArrowsAltOutlined />}
+            onClick={() => {
+              navigate(`/repository/${item?.id}`);
+            }}
+          />
+        ) : (
+          <Action
+            text={'Close'}
+            key="closeCard"
+            icon={<ArrowsAltOutlined />}
+            onClick={() => {
+              navigate(`/`);
+            }}
+          />
+        ),
       ]}
     >
       <Paragraph ellipsis={{ rows: 2 }}>
