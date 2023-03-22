@@ -15,7 +15,7 @@ import { repoType } from '@/types';
 
 const Repository = () => {
   let { repositoryId = '' } = useParams();
-  const [repo, setRepo] = useState();
+  const [repo, setRepo] = useState<repoType>();
   let navigate = useNavigate();
   const repoList = useSelector(selectSearchedItems);
 
