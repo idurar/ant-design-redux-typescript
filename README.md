@@ -1,4 +1,5 @@
-# Github Repos React App with Typescript
+# Starter Project built with React Redux Typescript Ant Design
+
 Github Repos React App with Typescript - Starter Project built with react redux typescript ant design
 
 Demo : [https://github-repos-react-typescript.vercel.app/](https://github-repos-react-typescript.vercel.app/)
