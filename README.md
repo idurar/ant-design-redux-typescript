@@ -1,7 +1,13 @@
 # Starter Project built with React Redux Typescript Ant Design
 
-Github Repos React App with Typescript - Starter Project built with react redux typescript ant design
+This is an open source Github project called "Github Repos React App with Typescript" that is built using React, Redux and Ant Design UI library. The purpose of the application is to show GitHub repositories that have the most stars, based on data fetched from the Github API.
 
+The app has several features such as the ability for a user to mark a repository as a favorite by clicking on a heart icon which will store the details locally for future use. Additionally, the user can filter the list of repositories by programming language.
+
+The project serves as a starter boilerplate for anyone interested in building a similar application using React, Redux, and TypeScript. It comes with basic functionalities already implemented, that can be used as a foundation to build other features.
+
+The project is open source and can be accessed via Github. Users are free to modify, distribute, and use the code for their personal or commercial projects, under the terms of the MIT License.
+#
 Demo : [https://github-repos-react-typescript.vercel.app/](https://github-repos-react-typescript.vercel.app/)
 
 #
